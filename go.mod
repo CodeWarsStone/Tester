@@ -1,4 +1,4 @@
-module Tester
+module github.com/YProblemka/Tester
 
 go 1.19
 

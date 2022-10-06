@@ -1,8 +1,8 @@
 package RabbitMQ
 
 import (
-	"Tester/Utils"
 	"fmt"
+	"github.com/YProblemka/Tester/Utils"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -48,6 +48,8 @@ func NewClient(
 		return nil, err
 	}
 	c.Producer, _ = NewProducer(c.conn, exchangeProducer, exchangeTypeProducer)
+
+	c.Producer.confirmHandler()
 
 	if err != nil {
 		return nil, err

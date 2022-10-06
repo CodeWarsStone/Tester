@@ -1,9 +1,9 @@
 package Tester
 
 import (
-	RabbitMQ2 "Tester/RabbitMQ"
-	"Tester/Utils"
 	"encoding/json"
+	"github.com/YProblemka/Tester/RabbitMQ"
+	"github.com/YProblemka/Tester/Utils"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"os"
 	"strconv"
@@ -17,7 +17,7 @@ type Worker interface {
 type Tester struct {
 	keyProducer  string
 	testerWorker Worker
-	Client       *RabbitMQ2.Client
+	Client       *RabbitMQ.Client
 }
 
 func NewTester(
@@ -33,7 +33,7 @@ func NewTester(
 	testerWorker Worker,
 	workerCount int) *Tester {
 
-	c, err := RabbitMQ2.NewClient(
+	c, err := RabbitMQ.NewClient(
 		amqpURI,
 		exchangeConsumer,
 		exchangeTypeConsumer,
@@ -87,7 +87,7 @@ func (t *Tester) delDir(directoryName string) {
 	_ = os.RemoveAll(directoryName)
 }
 
-func (t *Tester) worker(id int, jobs <-chan amqp.Delivery, producer *RabbitMQ2.Producer) {
+func (t *Tester) worker(id int, jobs <-chan amqp.Delivery, producer *RabbitMQ.Producer) {
 	for delivery := range jobs {
 
 		if resultTester, success := t.Testing(delivery.Body, strconv.Itoa(id)); success {

@@ -1,9 +1,9 @@
 package RabbitMQ
 
 import (
-	"Tester/Utils"
 	"context"
 	"fmt"
+	"github.com/YProblemka/Tester/Utils"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
